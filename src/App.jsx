@@ -67,7 +67,7 @@ const AppStyles = () => (
     }
 
     .zenwiz-chatHeader { 
-      background: linear-gradient(135deg, #4285f4 0%, #34a853 100%); 
+      background: #4285f4; 
       padding: 1rem; 
       color: white; 
       display: flex; justify-content: space-between; align-items: center; 
@@ -105,7 +105,7 @@ const AppStyles = () => (
     .zenwiz-closeChatButton:hover::before { opacity: 1; }
     .zenwiz-closeChatButton:hover { background-color: transparent; }
 
-    .zenwiz-closeChatIcon { width: 1.25rem; height: 1.25rem; fill: currentColor; stroke: currentColor; stroke-width: 2; }
+    .zenwiz-closeChatIcon { width: 1.5rem; height: 1.5rem; stroke: currentColor; }
 
     .zenwiz-messagesContainer { 
       flex: 1 1 0%; 
@@ -264,7 +264,7 @@ const AppStyles = () => (
       transform: none; 
     }
 
-    .zenwiz-sendIcon { width: 1.25rem; height: 1.25rem; fill: white; }
+    .zenwiz-sendIcon { width: 1.25rem; height: 1.25rem; fill: white; margin-left: -2px; }
 
   `}</style>
 );
@@ -388,8 +388,8 @@ const ZenWizChatbot = () => {
                 </div>
               </div>
               <button onClick={() => setIsOpen(false)} className="zenwiz-closeChatButton" aria-label="Close chat">
-                <svg className="zenwiz-closeChatIcon" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                <svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-closeChatIcon" fill="none" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -447,8 +447,8 @@ const ZenWizChatbot = () => {
                 aria-label="Send message" 
                 disabled={!inputMessage.trim() || isTyping}
               >
-                <svg className="zenwiz-sendIcon" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                <svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-sendIcon" viewBox="0 0 24 24">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
               </button>
             </div>
@@ -465,3 +465,4 @@ const ZenWizChatbot = () => {
 
 // The default export must be the App component
 export default ZenWizChatbot;
+
