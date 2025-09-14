@@ -105,7 +105,7 @@ const AppStyles = () => (
     .zenwiz-closeChatButton:hover::before { opacity: 1; }
     .zenwiz-closeChatButton:hover { background-color: transparent; }
 
-    .zenwiz-closeChatIcon { width: 1.5rem; height: 1.5rem; stroke: currentColor; }
+    .zenwiz-closeChatIcon { width: 1.75rem; height: 1.75rem; stroke: currentColor; }
 
     .zenwiz-messagesContainer { 
       flex: 1 1 0%; 
@@ -245,13 +245,14 @@ const AppStyles = () => (
     .zenwiz-chatInput::placeholder { color: #9aa0a6; }
 
     .zenwiz-sendButton { 
-      width: 2.5rem; height: 2.5rem; 
+      width: 2.75rem; height: 2.75rem; 
       background-color: #4285f4; 
       border-radius: 50%; 
       display: flex; align-items: center; justify-content: center; 
       transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); 
       border: none; cursor: pointer; 
       box-shadow: 0 1px 2px rgba(0,0,0,0.1); 
+      flex-shrink: 0;
     }
     .zenwiz-sendButton:hover:not(:disabled) { 
       background-color: #3367d6; 
@@ -264,7 +265,7 @@ const AppStyles = () => (
       transform: none; 
     }
 
-    .zenwiz-sendIcon { width: 1.25rem; height: 1.25rem; fill: white; margin-left: -2px; }
+    .zenwiz-sendIcon { width: 1.5rem; height: 1.5rem; fill: white; }
 
   `}</style>
 );
@@ -465,4 +466,5 @@ const ZenWizChatbot = () => {
 
 // The default export must be the App component
 export default ZenWizChatbot;
+
 
