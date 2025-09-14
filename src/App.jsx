@@ -16,7 +16,9 @@ const AppStyles = () => (
       -moz-osx-font-smoothing: grayscale;
     }
     body { margin: 0; display: flex; place-items: center; min-width: 320px; min-height: 100vh; }
-    #root { max-width: 1280px; margin: 0 auto; padding: 2rem; text-align: center; }
+    #root { width: 100%; max-width: 1280px; margin: 0 auto; padding: 2rem; text-align: center; }
+    .page-header h1 { color: #f9f9f9 }
+    .page-header p { color: #888 }
     .zenwiz-srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
     .zenwiz-chatbotContainer { position: fixed; bottom: 0; right: 0; left: 0; z-index: 50; overflow: hidden; }
     @media (min-width: 640px) { .zenwiz-chatbotContainer { left: auto; bottom: 1.5rem; right: 1.5rem; } }
@@ -74,7 +76,7 @@ const MemoizedMessageRow = memo(({ msg }) => {
       <div className={`zenwiz-messageRow ${msg.type === 'user' ? 'zenwiz-userMessageRow' : ''}`}>
         {msg.type === 'bot' && (
           <div className="zenwiz-botIconContainer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-botIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-botIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22-.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg>
           </div>
         )}
         <div className={`zenwiz-messageBubble ${msg.type === 'user' ? 'zenwiz-userMessageBubble' : 'zenwiz-botMessageBubble'}`}>
@@ -102,11 +104,12 @@ const ZenWizChatbot = () => {
     const timeoutRef = useRef(null);
 
     const responses = {
-        'sign up': { text: 'You can create a new account by clicking here:', links: [{ url: '#', label: 'Create Account' }] },
-        'contact': { text: 'Our support team is ready to help. You can find our contact details on our support page:', links: [{ url: '#', label: 'Contact Support' }] },
-        'help': { text: 'I can help with account creation, site navigation, and general real estate questions. You can also contact our human support team.', links: [] },
-        'escrow': { text: "Escrow is a legal arrangement where a third party holds money or property until specific conditions are met, protecting both buyer and seller.", links: [] },
-        'default': { text: "That's a great question! I'm still learning, but you can find more information on our website or contact our support team for help.", links: [] },
+      'sign up': { text: 'I can help with that! You can create a new account by clicking here:', links: [{ url: '#', label: 'Create Account'}] },
+      'contact': { text: 'Our support team is ready to help. You can find our contact details on our support page:', links: [{ url: '#', label: 'Contact Support'}] },
+      'help': { text: 'I can help with account creation, website navigation, and general real estate questions. You can also contact our human support team.', links: [] },
+      'escrow': { text: "Escrow is a legal arrangement where a neutral third party temporarily holds money or property until specific conditions are met, protecting both buyer and seller.", links: [] },
+      'saved listings': { text: 'You can find your saved listings by going to your dashboard, or by using this direct link:', links: [{ url: '#', label: 'View Saved Listings' }] },
+      'default': { text: "That's a great question! I'm still learning, but you can find more information on our website or contact our support team for help.", links: [] },
     };
 
     const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -135,44 +138,48 @@ const ZenWizChatbot = () => {
         }, 1200);
     };
 
-    const suggestions = ['How do I sign up?', 'What is escrow?', 'Contact support'];
+    const suggestions = ['How do I sign up?', 'What is escrow?', 'Show me my saved listings'];
 
     return (
-        <>
-            <AppStyles />
-            <div ref={chatboxRef} className="zenwiz-chatbotContainer">
-                {!isOpen && (<button onClick={() => setIsOpen(true)} className="zenwiz-openChatButton" aria-label="Open chat"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-openChatIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></button>)}
-                {isOpen && (
-                    <div className="zenwiz-chatWindow">
-                        <div className="zenwiz-chatHeader">
-                            <div className="zenwiz-headerInfo">
-                                <div className="zenwiz-headerIconContainer"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-headerIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></div>
-                                <div><h3 className="zenwiz-headerTitle">ZenWiz AI</h3><p className="zenwiz-headerStatus">Online</p></div>
-                            </div>
-                            <button onClick={() => setIsOpen(false)} className="zenwiz-closeChatButton" aria-label="Close chat"><svg className="zenwiz-closeChatIcon" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg></button>
+        <div ref={chatboxRef} className="zenwiz-chatbotContainer">
+            {!isOpen && (<button onClick={() => setIsOpen(true)} className="zenwiz-openChatButton" aria-label="Open chat"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-openChatIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22-.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></button>)}
+            {isOpen && (
+                <div className="zenwiz-chatWindow">
+                    <div className="zenwiz-chatHeader">
+                        <div className="zenwiz-headerInfo">
+                            <div className="zenwiz-headerIconContainer"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-headerIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22-.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></div>
+                            <div><h3 className="zenwiz-headerTitle">ZenWiz AI</h3><p className="zenwiz-headerStatus">Online</p></div>
                         </div>
-                        <div className="zenwiz-messagesContainer" role="log" aria-live="polite">
-                            {messages.map((msg) => (<MemoizedMessageRow key={msg.id} msg={msg} />))}
-                            {isTyping && (<div className="zenwiz-typingIndicatorRow"><div className="zenwiz-botIconContainer"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-botIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></div><div className="zenwiz-typingIndicatorBubble"><div className="zenwiz-typingIndicatorDots" aria-label="ZenWiz is typing"><div className="zenwiz-dot"></div><div className="zenwiz-dot"></div><div className="zenwiz-dot"></div></div></div></div>)}
-                            <div ref={messagesEndRef} />
-                        </div>
-                        {messages.length <= 1 && (<div className="zenwiz-suggestionsContainer">{suggestions.map((s, i) => (<button key={i} onClick={() => sendMessage(s)} className="zenwiz-suggestionButton" aria-label={`Send suggestion: ${s}`}>{s}</button>))}</div>)}
-                        <div className="zenwiz-chatInputArea">
-                            <label htmlFor="chat-input" className="zenwiz-srOnly">Type your message</label>
-                            <input id="chat-input" ref={inputRef} type="text" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && sendMessage()} placeholder="Type your message..." className="zenwiz-chatInput" />
-                            <button onClick={() => sendMessage()} className="zenwiz-sendButton" aria-label="Send message" disabled={!inputMessage.trim() || isTyping}><svg className="zenwiz-sendIcon" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg></button>
-                        </div>
+                        <button onClick={() => setIsOpen(false)} className="zenwiz-closeChatButton" aria-label="Close chat"><svg className="zenwiz-closeChatIcon" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg></button>
                     </div>
-                )}
-            </div>
-            <div style={{color: '#888', marginTop: '2rem'}}>
-                <h1>React Chatbot Demonstration</h1>
-                <p>Click the icon to interact with the ZenWiz AI assistant.</p>
-            </div>
-        </>
+                    <div className="zenwiz-messagesContainer" role="log" aria-live="polite">
+                        {messages.map((msg) => (<MemoizedMessageRow key={msg.id} msg={msg} />))}
+                        {isTyping && (<div className="zenwiz-typingIndicatorRow"><div className="zenwiz-botIconContainer"><svg xmlns="http://www.w3.org/2000/svg" className="zenwiz-botIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.34 9.32l-3.38-3.38c-.04-.04-.08-.06-.13-.06s-.1.02-.13-.05l-2.45 2.45c-.21.21-.55.21-.77 0l-.7-.7c-.22-.22-.22-.57 0-.78L15.23 4.5c.03-.03.05-.08.05-.13s-.02-.1-.06-.13l-3.38-3.38c-.22-.22-.58-.22-.8 0l-1.88 1.88-2.61-1.1c-.28-.12-.6-.04-.8.16L4.5 3.23c-.2.2-.28.52-.16.8l1.1 2.61-1.88 1.88c-.22.22-.22-.58 0 .8l3.38 3.38c.04.04.08.06.13.06s.1-.02.13-.05l2.45-2.45c-.21-.21.55.21.77 0l.7.7c.22.22.22.57 0-.78l-2.45 2.45c-.03-.03-.05-.08-.05-.13s.02.1.06.13l3.38 3.38c.22.22.58.22.8 0l1.88-1.88 2.61 1.1c-.28-.12.6-.04.8-.16l1.28-1.28c-.2-.2.28-.52.16-.8l-1.1-2.61 1.88-1.88c-.22-.22.22-.58 0-.8zM9.5 12c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zm5 5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" /></svg></div><div className="zenwiz-typingIndicatorBubble"><div className="zenwiz-typingIndicatorDots" aria-label="ZenWiz is typing"><div className="zenwiz-dot"></div><div className="zenwiz-dot"></div><div className="zenwiz-dot"></div></div></div></div>)}
+                        <div ref={messagesEndRef} />
+                    </div>
+                    {messages.length <= 1 && (<div className="zenwiz-suggestionsContainer">{suggestions.map((s, i) => (<button key={i} onClick={() => sendMessage(s)} className="zenwiz-suggestionButton" aria-label={`Send suggestion: ${s}`}>{s}</button>))}</div>)}
+                    <div className="zenwiz-chatInputArea">
+                        <label htmlFor="chat-input" className="zenwiz-srOnly">Type your message</label>
+                        <input id="chat-input" ref={inputRef} type="text" value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && sendMessage()} placeholder="Type your message..." className="zenwiz-chatInput" />
+                        <button onClick={() => sendMessage()} className="zenwiz-sendButton" aria-label="Send message" disabled={!inputMessage.trim() || isTyping}><svg className="zenwiz-sendIcon" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg></button>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 };
 
-// The default export must be the App component
-export default ZenWizChatbot;
+function App() {
+  return (
+    <>
+      <AppStyles />
+      <div className="page-header">
+        <h1>React Chatbot Demonstration</h1>
+        <p>Click the icon to interact with the ZenWiz AI assistant.</p>
+      </div>
+      <ZenWizChatbot />
+    </>
+  );
+}
 
+export default App;
